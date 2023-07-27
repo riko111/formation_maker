@@ -5,9 +5,9 @@ final dancerModelProvider = Provider((ref) => DancerModel());
 
 class DancerModel{
   int dancerCount = 0;
-  final List<double> tops = [];
-  final List<double> lefts = [];
-  final List<String> names = [];
+  List<double> tops = [];
+  List<double> lefts = [];
+  List<String> names = [];
 
 
 }

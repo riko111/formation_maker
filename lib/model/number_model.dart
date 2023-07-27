@@ -7,21 +7,21 @@ import 'package:json_annotation/json_annotation.dart';
 part 'number_model.g.dart';
 
 final numberModelProvider = Provider((ref) => NumberModel());
-
-@JsonSerializable()
-class PointModel { // 場面ごとの1人分の座標位置を保持するクラス
-  double top;
-  double left;
-  PointModel({required this.top, required this.left});
-
-  factory PointModel.fromJson(Map<String, dynamic> json) =>
-      _$PointModelFromJson(json);
-  Map<String, dynamic> toJson() => _$PointModelToJson(this);
-}
+//
+// @JsonSerializable()
+// class PointModel { // 場面ごとの1人分の座標位置を保持するクラス
+//   double top;
+//   double left;
+//   PointModel({required this.top, required this.left});
+//
+//   factory PointModel.fromJson(Map<String, dynamic> json) =>
+//       _$PointModelFromJson(json);
+//   Map<String, dynamic> toJson() => _$PointModelToJson(this);
+// }
 
 @JsonSerializable(explicitToJson: true)
 class SceneModel { // 1場面を保持するクラス
-  late List<PointModel> points;
+  List<List<double>> points = [];
   SceneModel(this.points);
 
   factory SceneModel.fromJson(Map<String, dynamic> json) =>
@@ -43,13 +43,18 @@ class NumberModel{ // 曲ごとのデータを保持するクラス
 
   late int tempo;
 
+  List<String> dancerNameList =[];
   List<SceneModel> sceneList = [];
   //FileRepository? repository;
   NumberModel._internal();
   factory NumberModel() => _instance;
 
-  NumberModel.name(this.serialNumber, this.numberName, this.dancerCount,
-      this.sceneCount, this.stageWidth, this.stageHeight, this.tempo);
+  NumberModel.set(this.serialNumber, this.numberName, this.dancerCount,
+      this.sceneCount, this.stageWidth, this.stageHeight, this.tempo){
+    for(int i=0; i<dancerCount; i++){
+      dancerNameList.add((i+1).toString());
+    }
+  }
 
   factory NumberModel.fromJson(Map<String,dynamic> json) =>
       _$NumberModelFromJson(json);
@@ -61,10 +66,11 @@ class NumberModel{ // 曲ごとのデータを保持するクラス
       _setDefault();
       return;
     }
+
     final json = await file.readAsString();
-    //print("!!!!!!!!!!!!!!!!${jsonDecode(json)}");
-    _$NumberModelFromJson(jsonDecode(json));
+    return _$NumberModelFromJson(jsonDecode(json));
   }
+
 
   Future save(File file) async {
     final json = jsonEncode(_$NumberModelToJson(this));

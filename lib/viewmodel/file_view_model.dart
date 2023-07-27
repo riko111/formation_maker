@@ -12,11 +12,16 @@ class FileViewModel {
   FileRepository? repository;
   FileViewModel({this.repository});
 
-  void createFile(String numberName, int dancerCount, int stageWidth, int stageHeight, int tempo){
+  void createFile(String numberName, /*int dancerCount,*/ int stageWidth, int stageHeight, int tempo){
     DateTime dateTime = DateTime.timestamp();
     String strDate = DateFormat('yyyyMMddhhmmss').format(dateTime);
     String serialNumber = strDate + generateRandomString();
-    NumberModel model = NumberModel.name(serialNumber, numberName, dancerCount, 1, stageWidth, stageHeight,tempo);
+    NumberModel model = NumberModel.set(serialNumber, numberName, /*dancerCount*/0, 1, stageWidth, stageHeight,tempo);
+    repository?.model = model;
+    repository?.write;
+  }
+
+  void updateFile(NumberModel model){
     repository?.model = model;
     repository?.write;
   }

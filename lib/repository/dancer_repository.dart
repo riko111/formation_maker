@@ -8,6 +8,7 @@ abstract class DancerRepository {
   Future<DancerModel> changePoint(int count, double top, double left);
 
   void initialize(int count, double size);
+  void initializeList(List<double> tops, List<double> lefts, List<String> names);
 }
 
 class DancerRepositoryImpl implements DancerRepository {
@@ -29,6 +30,14 @@ class DancerRepositoryImpl implements DancerRepository {
       _model.tops.add(0.0);
       _model.lefts.add(size * (i+1));
     }
+  }
+
+  @override
+  void initializeList(List<double> tops, List<double> lefts, List<String> names) {
+    _model.dancerCount = tops.length;
+    _model.tops = tops;
+    _model.lefts = lefts;
+
   }
 
 }

@@ -11,19 +11,18 @@ class CreateNumberPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //final state = ref.watch();
     return getInner(context);
   }
 
   Scaffold getInner(BuildContext context){
     final nameController = useTextEditingController();
-    final numberController = useTextEditingController();
+    // final numberController = useTextEditingController();
     final tempoController = useTextEditingController();
     final widthController = useTextEditingController();
     final heightController = useTextEditingController();
 
     String title;
-    int count;
+    // int count;
     int tempo;
     String sWidth;
     String sHeight;
@@ -60,7 +59,7 @@ class CreateNumberPage extends HookConsumerWidget {
                   return null;
                 },
               ),
-              TextFormField(
+              /*TextFormField(
                 controller: numberController,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 keyboardType: TextInputType.number,
@@ -79,7 +78,7 @@ class CreateNumberPage extends HookConsumerWidget {
                   }
                   return null;
                 },
-              ),
+              ),*/
               TextFormField(
                 controller: tempoController,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -148,13 +147,13 @@ class CreateNumberPage extends HookConsumerWidget {
                   TextButton(
                     onPressed: ()=>{
                         title = nameController.text,
-                        count = int.parse(numberController.text),
+                        // count = int.parse(numberController.text),
                         tempo = int.parse(tempoController.text),
                         sWidth = widthController.text,
                         sHeight = heightController.text,
                         width = sWidth.isNotEmpty ? int.parse(sWidth) : 900,
                         height = sHeight.isNotEmpty ? int.parse(sHeight) : 450,
-                        viewModel?.createFile(title, count, width, height,tempo),
+                        viewModel?.createFile(title,/* count,*/ width, height,tempo),
 
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) => NumberPage(viewModel!,null)))
@@ -176,7 +175,4 @@ class CreateNumberPage extends HookConsumerWidget {
     );
   }
 
-  Future<bool> _willPopCallback() async {
-    return false;
-  }
 }
