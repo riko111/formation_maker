@@ -43,6 +43,7 @@ dependencies:
   intl:
   flutter_file_dialog: ^3.0.1
   fluttertoast: ^8.2.2
+  loading_animation_widget:
 
 dev_dependencies:
   flutter_test:

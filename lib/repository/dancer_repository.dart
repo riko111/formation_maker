@@ -5,39 +5,51 @@ import 'package:formation_maker/model/dancer_model.dart';
 final dancerRepositoryProvider = Provider((ref) => DancerRepositoryImpl(model: ref.read(dancerModelProvider)));
 
 abstract class DancerRepository {
-  Future<DancerModel> changePoint(int count, double top, double left);
+  Future<List<DancerModel>> changePoint(int count, double top, double left);
 
   void initialize(int count, double size);
   void initializeList(List<double> tops, List<double> lefts, List<String> names);
+  Future<List<DancerModel>> addDancer(double x, double y);
+  Future<List<DancerModel>> getDancerList();
 }
 
 class DancerRepositoryImpl implements DancerRepository {
-  DancerRepositoryImpl({required DancerModel model}) :_model = model;
+  DancerRepositoryImpl({required List<DancerModel> model}) :_model = model;
   
-  final DancerModel _model;
+  //final DancerModel _model;
+  final List<DancerModel> _model;
 
   @override
-  Future<DancerModel> changePoint(int count, double top, double left) {
-    _model.tops[count] = top;
-    _model.lefts[count] = left;
+  Future<List<DancerModel>> changePoint(int count, double top, double left) {
+    _model[count].point = [left , top];
     return Future.value(_model);
   }
 
   @override
   void initialize(int count, double size) {
-    _model.dancerCount = count;
     for(int i=0; i<count; i++){
-      _model.tops.add(0.0);
-      _model.lefts.add(size * (i+1));
+      _model.add(DancerModel()..point=[0,0]..name=(i+1).toString()..num=i);
     }
   }
 
   @override
   void initializeList(List<double> tops, List<double> lefts, List<String> names) {
-    _model.dancerCount = tops.length;
-    _model.tops = tops;
-    _model.lefts = lefts;
+    for(int i=0; i<names.length; i++){
+      _model.add(DancerModel()..point=[lefts[i],tops[i]]..name=names[i]..num=i);
+    }
 
+  }
+
+  @override
+  Future<List<DancerModel>> addDancer(double x, double y) {
+    int num = _model.length;
+    _model.add(DancerModel()..point=[x,y]..name=(num+1).toString()..num=num);
+    return Future.value(_model);
+  }
+
+  @override
+  Future<List<DancerModel>> getDancerList() {
+    return Future.value(_model);
   }
 
 }

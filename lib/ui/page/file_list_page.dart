@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:formation_maker/ui/number_page.dart';
+import 'package:formation_maker/ui/formation_maker.dart';
 import 'package:formation_maker/viewmodel/file_view_model.dart';
 
 class FileListPage extends StatelessWidget{
-  const FileListPage({super.key, required this.viewModel});
-  final FileViewModel viewModel;
+  const FileListPage({super.key});
   @override
   Widget build(BuildContext context) {
+    final FileViewModel viewModel =  ModalRoute.of(context)?.settings.arguments as FileViewModel;
     List<File> list = viewModel.getFileList()!;
     if(list.isEmpty){
       Navigator.pop(context);
@@ -33,8 +33,7 @@ class FileListPage extends StatelessWidget{
           itemBuilder: (context,index){
             return InkWell(
               onTap:(){
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => NumberPage(viewModel, list[index])));
+                Navigator.pushNamed(context, '/number', arguments: NumberPageArguments(viewModel,list[index]));
               },
               child :Container(
                 height:50,

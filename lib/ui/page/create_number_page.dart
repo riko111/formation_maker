@@ -1,33 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:formation_maker/ui/number_page.dart';
+import 'package:formation_maker/ui/formation_maker.dart';
 import 'package:formation_maker/viewmodel/file_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 
 class CreateNumberPage extends HookConsumerWidget {
-  final FileViewModel? viewModel;
-  const CreateNumberPage({Key? key,  this.viewModel}):super(key: key);
+
+  const CreateNumberPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return getInner(context);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
+    final viewModel = ModalRoute.of(context)?.settings.arguments as FileViewModel;
+    return getInner(context, viewModel);
   }
 
-  Scaffold getInner(BuildContext context){
+  Scaffold getInner(BuildContext context, FileViewModel viewModel){
     final nameController = useTextEditingController();
-    // final numberController = useTextEditingController();
-    final tempoController = useTextEditingController();
-    final widthController = useTextEditingController();
-    final heightController = useTextEditingController();
 
     String title;
-    // int count;
-    int tempo;
-    String sWidth;
-    String sHeight;
-    int width;
-    int height;
 
     return Scaffold(
       appBar: AppBar(
@@ -40,6 +33,7 @@ class CreateNumberPage extends HookConsumerWidget {
             shrinkWrap: true,
             children: [
               TextFormField(
+                autofocus: true,
                 controller: nameController,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 keyboardType: TextInputType.text,
@@ -78,7 +72,7 @@ class CreateNumberPage extends HookConsumerWidget {
                   }
                   return null;
                 },
-              ),*/
+              ),
               TextFormField(
                 controller: tempoController,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -130,7 +124,7 @@ class CreateNumberPage extends HookConsumerWidget {
                   }
                   return null;
                 }
-              ),
+              ),*/
               const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -146,18 +140,17 @@ class CreateNumberPage extends HookConsumerWidget {
                   const SizedBox(width: 10,),
                   TextButton(
                     onPressed: ()=>{
-                        title = nameController.text,
-                        // count = int.parse(numberController.text),
-                        tempo = int.parse(tempoController.text),
-                        sWidth = widthController.text,
-                        sHeight = heightController.text,
-                        width = sWidth.isNotEmpty ? int.parse(sWidth) : 900,
-                        height = sHeight.isNotEmpty ? int.parse(sHeight) : 450,
-                        viewModel?.createFile(title,/* count,*/ width, height,tempo),
+                      title = nameController.text,
+                      if(title.isNotEmpty){
+                        viewModel.createFile(title,),
 
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => NumberPage(viewModel!,null)))
-                      },
+                        Navigator.pushReplacementNamed(context, '/number',
+                            arguments: NumberPageArguments(viewModel, null))
+                      } else {
+                        nameController.text = ' ',
+                        nameController.text = ''
+                      }
+                    },
 
                     style: TextButton.styleFrom(
                       textStyle: const TextStyle(fontSize: 20),

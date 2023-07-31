@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class DancerColors{
-  static List<Color> colors =[
+  static const List<Color> colors =[
     Colors.red,
-    Colors.orange,
-    Colors.yellow,
-    Colors.lightGreen,
     Colors.green,
-    Colors.teal,
-    Colors.lightBlue,
-    Colors.blue,
     Colors.indigo,
+    Colors.orange,
+    Colors.teal,
     Colors.purple,
+    Colors.yellow,
+    Colors.lightBlue,
     Colors.purpleAccent,
     Colors.pink,
+    Colors.lightGreen,
+    Colors.blue,
   ];
 
 }

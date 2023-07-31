@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:formation_maker/model/dancer_model.dart';
 import 'package:formation_maker/repository/dancer_repository.dart';
 
 import '../model/number_model.dart';
@@ -8,11 +9,11 @@ final dancerViewModelProvider = ChangeNotifierProvider((ref) => DancerViewModel(
 
 class DancerViewModel extends ChangeNotifier {
   int _dancerCount = 0;
-  final List<double> _tops = [];
-  List<double> get tops => _tops;
+  final List<double> _yList = [];
+  List<double> get yList => _yList;
 
-  final List<double> _lefts = [];
-  List<double> get lefts => _lefts;
+  final List<double> _xList = [];
+  List<double> get xList => _xList;
 
   List<String> names = [];
 
@@ -22,43 +23,33 @@ class DancerViewModel extends ChangeNotifier {
 
   bool initializedFlag = false;
 
-  void initialize(int count, double size) {
-    _dancerCount = count;
-    for(int i=0; i<dancerCount; i++){
-      _tops.add(0.0);
-      _lefts.add(size * (i+1));
-    }
-    repository?.initialize(count,size);
-  }
-
-  void initializeList(NumberModel model,int sceneNum){
-    if(initializedFlag) return;
+  void initializeList(NumberModel model){
+   if(initializedFlag) return;
+   _yList.clear();
+   _xList.clear();
 
     _dancerCount = model.dancerNameList.length;
     if(model.sceneList.isEmpty) {
       List<List<double>> points = [];
       for(int i=0; i<dancerCount; i++){
-        _tops.add(0.0);
-        _lefts.add(0.0);
+        _yList.add(0.0);
+        _xList.add(0.0);
         List<double> point = [0.0,0.0];
         points.add(point);
       }
       SceneModel sceneModel = SceneModel(points);
       model.sceneList.add(sceneModel);
     } else {
-      List<List<double>> points = model.sceneList[sceneNum].points;
-      for(int i=0; i<dancerCount; i++){
-        if(_tops.length < i+1) {
-          _tops.add(points[i][0]);
-          _lefts.add(points[i][1]);
-        } else {
-          _tops[i] = points[i][0];
-          _lefts[i] = points[i][1];
+      for(int i=0; i<model.sceneList.length; i++){
+        List<List<double>> points = model.sceneList[i].points;
+        for(int i=0; i<dancerCount; i++) {
+          _yList.add(points[i][1]);
+          _xList.add(points[i][0]);
         }
       }
     }
     names = model.dancerNameList;
-    repository?.initializeList(_tops, _lefts, names);
+    repository?.initializeList(_yList, _xList, names);
     initializedFlag = true;
   }
 
@@ -71,21 +62,35 @@ class DancerViewModel extends ChangeNotifier {
     } else {
       scene = list[num];
     }
-    for(int i=0; i<_tops.length; i++){
-      List<double> point = [_tops[i], _lefts[i]];
+    scene.points = [];
+    for(int i=0; i<_yList.length; i++){
+      List<double> point = [_xList[i], _yList[i]];
       scene.points.add(point);
     }
+    numberModel.sceneCount = list.length;
+    numberModel.dancerCount = names.length;
+    numberModel.dancerNameList = names;
   }
 
 
   int get dancerCount => _dancerCount;
 
   void changePoint(int count, double top, double left) {
-    repository?.changePoint(count, top, left).then((value) {
-      _tops[count] = value.tops[count];
-      _lefts[count] = value.lefts[count];
+    repository?.changePoint(count, top, left).then((dancerModel) {
+      _xList.add(dancerModel[count].point[0]);
+      _yList.add(dancerModel[count].point[1]);
       notifyListeners();
     });
   }
 
+  void addDancer(double x, double y){
+    repository?.addDancer(x,y).then((dancerModelList) {
+      DancerModel dancerModel = dancerModelList[dancerCount];
+      _xList.add(dancerModel.point[0]);
+      _yList.add(dancerModel.point[1]);
+      names.add(dancerModel.name);
+      ++_dancerCount;
+      notifyListeners();
+    });
+  }
 }
