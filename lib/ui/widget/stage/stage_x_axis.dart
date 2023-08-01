@@ -30,7 +30,7 @@ class _XAxisPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // 舞台の中心点
+    // 舞台の中心x座標
     List<double> centerPoint = [size.width /2, size.height/2];
     // 舞台上y座標
     double top = centerPoint[1] - height/2;
@@ -50,7 +50,7 @@ class _XAxisPainter extends CustomPainter {
       ..color = Colors.black26
       ..strokeWidth = 1;
 
-    final textY = height + 12;
+    final textY = top + height + 12;
     final no = xCount~/2;
 
     //センターライン

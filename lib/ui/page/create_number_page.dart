@@ -12,7 +12,7 @@ class CreateNumberPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
+    // SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
     final viewModel = ModalRoute.of(context)?.settings.arguments as FileViewModel;
     return getInner(context, viewModel);
   }

@@ -26,15 +26,15 @@ class Stage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // 舞台描画出来るサイズ
-    double tmpHeight = SizeConfig.safeBlockVertical! * 70;
-    double tmpWidth = SizeConfig.safeBlockHorizontal! * 80;
+    // double tmpHeight = SizeConfig.safeBlockVertical! * 70;
+    // double tmpWidth = SizeConfig.safeBlockHorizontal! * 80;
 
     // 1cmに相当するポイント
     double cm;
-    if (tmpWidth / specWidth < tmpHeight / specHeight) {
-      cm = tmpWidth / specWidth;
+    if (SizeConfig.safeAreaWidth! / (specWidth+180) <  SizeConfig.safeBlockVertical!*70 / (specHeight+90)) {
+      cm = SizeConfig.safeAreaWidth! / (specWidth+180);
     } else {
-      cm = tmpHeight / specHeight;
+      cm = SizeConfig.safeBlockVertical!*70 / (specHeight+90);
     }
 
     // 1マス分の大きさ
@@ -47,14 +47,13 @@ class Stage extends ConsumerWidget {
     double dancerRadius = cm * 35;
 
     //舞台センターポイント
-    //Offset centerPoint = Offset(SizeConfig.safeBlockHorizontal!*50, SizeConfig.safeBlockVertical!*40);
+    Offset centerPoint = Offset(SizeConfig.safeBlockHorizontal!*50, SizeConfig.safeBlockVertical!*35);
 
     return SizedBox(
       key: ValueKey(xCount),
-      height: SizeConfig.safeBlockVertical! * 80,
+      height: SizeConfig.safeBlockVertical! * 70,
       width: SizeConfig.safeBlockHorizontal! * 100,
       child: Stack(
-        alignment: Alignment.center,
         children: [
           StageFloor(width: stageWidth, height: stageHeight),
           StageXAxis(
@@ -75,6 +74,7 @@ class Stage extends ConsumerWidget {
               height: stageHeight,
               num: i,
               dancerViewModel: dancerViewModel,
+              centerPoint: centerPoint,
               cm: cm,
             ),
         ],

@@ -13,7 +13,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
+    // SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
 
     FileViewModel viewModel = ref.watch(fileViewModelProvider);
     return Scaffold(

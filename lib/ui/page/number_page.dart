@@ -25,7 +25,7 @@ class NumberPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
+    // SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
     final args =
         ModalRoute.of(context)?.settings.arguments as NumberPageArguments;
     final FileViewModel fileViewModel = args.fileViewModel;
@@ -72,14 +72,20 @@ class NumberPage extends ConsumerWidget {
       },
 
       child: Scaffold(
-        body: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Consumer(builder: (context, ref, child) {
-              //return const Text('data');
-              return Stage(xCount: xCount, yCount: yCount,specWidth: numberModel.stageWidth, specHeight: numberModel.stageHeight, dancerViewModel: dancerViewModel);
-            }),
-            drawButtons(dancerViewModel, numberModel, fileViewModel, xCount.toDouble(), yCount.toDouble())
-          ]),
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child:Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Consumer(builder: (context, ref, child) {
+                //return const Text('data');
+                return Stage(xCount: xCount, yCount: yCount,specWidth: numberModel.stageWidth, specHeight: numberModel.stageHeight, dancerViewModel: dancerViewModel);
+              }),
+              drawButtons(context, dancerViewModel, numberModel, fileViewModel, xCount.toDouble(), yCount.toDouble()),
+              SizedBox(
+                height: MediaQuery.of(context).viewInsets.bottom,
+              )
+            ]),
+          )
         )
       ),
     );
@@ -87,14 +93,14 @@ class NumberPage extends ConsumerWidget {
 
 
   ///ボタン描画
-  Row drawButtons(DancerViewModel dancerViewModel, NumberModel numberModel, FileViewModel fileViewModel, double xCount, double yCount){
-    var iconSize = SizeConfig.safeBlockVertical! * 20;
+  Row drawButtons(BuildContext context, DancerViewModel dancerViewModel, NumberModel numberModel, FileViewModel fileViewModel, double xCount, double yCount){
+    var iconSize = MediaQuery.of(context).orientation==Orientation.landscape? SizeConfig.safeBlockVertical! * 20 : SizeConfig.safeBlockHorizontal! * 20;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
           onPressed: ()=>{
-            addMember(dancerViewModel),
+            addMember(dancerViewModel, xCount, yCount),
           },
           icon: const Icon(Icons.person_add),
           tooltip: "メンバー追加",
@@ -110,9 +116,12 @@ class NumberPage extends ConsumerWidget {
       ],
     );
   }
-  void addMember(DancerViewModel dancerViewModel){
-    dancerViewModel.addDancer(SizeConfig.blockSizeHorizontal!*2, SizeConfig.safeAreaTop! + SizeConfig.safeBlockVertical!*2);
+  void addMember(DancerViewModel dancerViewModel, double xCount, double yCount){
+    // dancerViewModel.addDancer(SizeConfig.safeBlockHorizontal!*2, SizeConfig.safeAreaTop! + SizeConfig.safeBlockVertical!*2);
+    dancerViewModel.addDancer(xCount/2+0.5,yCount/2);
   }
+
+
 
   Widget _loadingWidget(double size) {
     return Center(
