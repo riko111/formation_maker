@@ -28,6 +28,8 @@ NumberModel _$NumberModelFromJson(Map<String, dynamic> json) => NumberModel()
   ..tempo = json['tempo'] as int
   ..dancerNameList =
       (json['dancerNameList'] as List<dynamic>).map((e) => e as String).toList()
+  ..dancerColorList =
+      (json['dancerColorList'] as List<dynamic>).map((e) => e as int).toList()
   ..sceneList = (json['sceneList'] as List<dynamic>)
       .map((e) => SceneModel.fromJson(e as Map<String, dynamic>))
       .toList();
@@ -42,5 +44,6 @@ Map<String, dynamic> _$NumberModelToJson(NumberModel instance) =>
       'stageHeight': instance.stageHeight,
       'tempo': instance.tempo,
       'dancerNameList': instance.dancerNameList,
+      'dancerColorList': instance.dancerColorList,
       'sceneList': instance.sceneList.map((e) => e.toJson()).toList(),
     };

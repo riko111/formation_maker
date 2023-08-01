@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:formation_maker/const/colors.dart';
+import 'package:formation_maker/ui/formation_maker.dart';
 import 'package:formation_maker/util/point_util.dart';
 import 'package:formation_maker/viewmodel/danver_view_model.dart';
 
@@ -47,6 +48,7 @@ class _DragState extends State<StageDancer> {
               dancerRadius: widget.dancerRadius,
               num: widget.num,
               name: widget.dancerViewModel.names[widget.num],
+              color: widget.dancerViewModel.colors[widget.num],
             ),
           ),
           child: GestureDetector(
@@ -54,10 +56,11 @@ class _DragState extends State<StageDancer> {
               dancerRadius: widget.dancerRadius,
               num: widget.num,
               name: widget.dancerViewModel.names[widget.num],
+              color: widget.dancerViewModel.colors[widget.num],
             ),
             onLongPress: ()=>{
               print('longPress${widget.num}'),
-
+              Navigator.pushNamed(context, '/setting_dancer', arguments: SettingDancerPageArguments(widget.dancerViewModel, widget.num)),
             },
           ),
           onDragEnd: (dragDetails){
@@ -82,11 +85,13 @@ class DancerContainer extends StatelessWidget{
     required this.dancerRadius,
     required this.num,
     required this.name,
+    required this.color,
   });
 
   final double dancerRadius;
   final int num;
   final String name;
+  final int color;
 
   @override
   Widget build(BuildContext context) {
@@ -94,12 +99,12 @@ class DancerContainer extends StatelessWidget{
       alignment: Alignment.center,
       decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(color:DancerColors.colors[num],),
+          border: Border.all(color:Color(color),),
       ),
       child:Text(
         name ,
         style: TextStyle(
-          color: DancerColors.colors[num],
+          color: Color(color),
           fontSize: dancerRadius,
         )
       ),

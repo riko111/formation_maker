@@ -1,5 +1,6 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:formation_maker/const/colors.dart';
 import 'package:formation_maker/model/dancer_model.dart';
 
 final dancerRepositoryProvider = Provider((ref) => DancerRepositoryImpl(model: ref.read(dancerModelProvider)));
@@ -43,7 +44,10 @@ class DancerRepositoryImpl implements DancerRepository {
   @override
   Future<List<DancerModel>> addDancer(double x, double y) {
     int num = _model.length;
-    _model.add(DancerModel()..point=[x,y]..name=(num+1).toString()..num=num);
+    _model.add(
+        DancerModel()
+          ..point=[x,y]..name=(num+1).toString()..num=num..color=DancerColors.colors[num].value
+    );
     return Future.value(_model);
   }
 

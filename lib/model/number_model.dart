@@ -44,6 +44,7 @@ class NumberModel{ // 曲ごとのデータを保持するクラス
   late int tempo;
 
   List<String> dancerNameList =[];
+  List<int> dancerColorList = [];
   List<SceneModel> sceneList = [];
   //FileRepository? repository;
   NumberModel._internal();

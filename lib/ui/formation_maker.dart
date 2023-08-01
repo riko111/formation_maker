@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:formation_maker/ui/page/file_list_page.dart';
 import 'package:formation_maker/ui/page/home_page.dart';
 import 'package:formation_maker/ui/page/number_page.dart';
+import 'package:formation_maker/ui/page/setting_dancer_page.dart';
+import 'package:formation_maker/viewmodel/danver_view_model.dart';
 import 'package:formation_maker/viewmodel/file_view_model.dart';
 
 import '../config/size_config.dart';
@@ -31,6 +33,7 @@ class FormationMakerApp extends StatelessWidget {
         '/create_number' : (context) => const CreateNumberPage(),
         '/file_list' : (context) => const FileListPage(),
         '/number' : (context) => const NumberPage(),
+        '/setting_dancer' : (context) => const SettingDancerPage(),
       },
     );
   }
@@ -40,4 +43,10 @@ class NumberPageArguments{
   NumberPageArguments(this.fileViewModel, this.filePath);
   final FileViewModel fileViewModel;
   final File? filePath;
+}
+
+class SettingDancerPageArguments{
+  SettingDancerPageArguments(this.dancerViewModel, this.num);
+  final DancerViewModel dancerViewModel;
+  final int num;
 }

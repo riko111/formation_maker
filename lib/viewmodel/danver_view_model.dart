@@ -16,6 +16,7 @@ class DancerViewModel extends ChangeNotifier {
   List<double> get xList => _xList;
 
   List<String> names = [];
+  List<int> colors = [];
 
   DancerRepository? repository;
 
@@ -49,6 +50,7 @@ class DancerViewModel extends ChangeNotifier {
       }
     }
     names = model.dancerNameList;
+    colors = model.dancerColorList;
     repository?.initializeList(_yList, _xList, names);
     initializedFlag = true;
   }
@@ -70,6 +72,7 @@ class DancerViewModel extends ChangeNotifier {
     numberModel.sceneCount = list.length;
     numberModel.dancerCount = names.length;
     numberModel.dancerNameList = names;
+    numberModel.dancerColorList = colors;
   }
 
 
@@ -89,6 +92,7 @@ class DancerViewModel extends ChangeNotifier {
       _xList.add(dancerModel.point[0]);
       _yList.add(dancerModel.point[1]);
       names.add(dancerModel.name);
+      colors.add(dancerModel.color);
       ++_dancerCount;
       notifyListeners();
     });
