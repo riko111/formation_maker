@@ -6,7 +6,7 @@ import 'package:formation_maker/ui/page/file_list_page.dart';
 import 'package:formation_maker/ui/page/home_page.dart';
 import 'package:formation_maker/ui/page/number_page.dart';
 import 'package:formation_maker/ui/page/setting_dancer_page.dart';
-import 'package:formation_maker/viewmodel/danver_view_model.dart';
+import 'package:formation_maker/viewmodel/dancer_view_model.dart';
 import 'package:formation_maker/viewmodel/file_view_model.dart';
 
 import '../config/size_config.dart';

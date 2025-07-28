@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:formation_maker/const/colors.dart';
 import 'package:formation_maker/ui/formation_maker.dart';
 import 'package:formation_maker/util/point_util.dart';
-import 'package:formation_maker/viewmodel/danver_view_model.dart';
+import 'package:formation_maker/viewmodel/dancer_view_model.dart';
 
 class StageDancer extends StatefulWidget {
   const StageDancer({

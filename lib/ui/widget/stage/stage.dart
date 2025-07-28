@@ -4,7 +4,7 @@ import 'package:formation_maker/ui/widget/stage/stage_dancer.dart';
 import 'package:formation_maker/ui/widget/stage/stage_floor.dart';
 import 'package:formation_maker/ui/widget/stage/stage_x_axis.dart';
 import 'package:formation_maker/ui/widget/stage/stage_y_axis.dart';
-import 'package:formation_maker/viewmodel/danver_view_model.dart';
+import 'package:formation_maker/viewmodel/dancer_view_model.dart';
 
 import '../../../config/size_config.dart';
 
