@@ -10,7 +10,7 @@ import 'package:formation_maker/ui/widget/stage/stage.dart';
 import 'package:formation_maker/viewmodel/file_view_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../viewmodel/danver_view_model.dart';
+import '../../viewmodel/dancer_view_model.dart';
 
 class NumberPage extends ConsumerWidget {
   const NumberPage({super.key});
