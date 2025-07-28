@@ -80,8 +80,8 @@ class DancerViewModel extends ChangeNotifier {
 
   void changePoint(int count, double top, double left) {
     repository?.changePoint(count, top, left).then((dancerModel) {
-      _xList.add(dancerModel[count].point[0]);
-      _yList.add(dancerModel[count].point[1]);
+      _xList[count] = dancerModel[count].point[0];
+      _yList[count] = dancerModel[count].point[1];
       notifyListeners();
     });
   }
