@@ -10,7 +10,8 @@ final ioProvider= ChangeNotifierProvider( (ref) => FileRepository(model:ref.read
 
 class FileRepository extends ChangeNotifier{
   late NumberModel model;
-  FileRepository({required this.model}){
+  FileRepository({required NumberModel model}){
+    this.model = model;
     () async {
       final localPath = await getLocalPath;
       appPath = '$localPath/number/';
