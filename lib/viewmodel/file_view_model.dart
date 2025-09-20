@@ -12,18 +12,26 @@ class FileViewModel {
   FileRepository? repository;
   FileViewModel({this.repository});
 
-  void createFile(String numberName){
+  Future<void> createFile(String numberName) async {
     DateTime dateTime = DateTime.timestamp();
     String strDate = DateFormat('yyyyMMddhhmmss').format(dateTime);
     String serialNumber = strDate + generateRandomString();
     NumberModel model = NumberModel.set(serialNumber, numberName, 0, 1, 900, 450, 100);
-    repository?.model = model;
-    repository?.write;
+    final repo = repository;
+    if (repo == null) {
+      return;
+    }
+    repo.model = model;
+    await repo.write();
   }
 
-  void updateFile(NumberModel model){
-    repository?.model = model;
-    repository?.write;
+  Future<void> updateFile(NumberModel model) async {
+    final repo = repository;
+    if (repo == null) {
+      return;
+    }
+    repo.model = model;
+    await repo.write();
   }
 
   String generateRandomString(){

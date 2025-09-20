@@ -139,16 +139,18 @@ class CreateNumberPage extends HookConsumerWidget {
                   ),
                   const SizedBox(width: 10,),
                   TextButton(
-                    onPressed: ()=>{
-                      title = nameController.text,
-                      if(title.isNotEmpty){
-                        viewModel.createFile(title,),
-
+                    onPressed: () async {
+                      title = nameController.text;
+                      if (title.isNotEmpty) {
+                        await viewModel.createFile(title);
+                        if (!context.mounted) {
+                          return;
+                        }
                         Navigator.pushReplacementNamed(context, '/number',
-                            arguments: NumberPageArguments(viewModel, null))
+                            arguments: NumberPageArguments(viewModel, null));
                       } else {
-                        nameController.text = ' ',
-                        nameController.text = ''
+                        nameController.text = ' ';
+                        nameController.text = '';
                       }
                     },
 
