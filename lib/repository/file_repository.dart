@@ -37,7 +37,7 @@ class FileRepository extends ChangeNotifier{
     return directory.path;
   }
 
-  Future<void> get write async {
+  Future<void> write() async {
     String serial = model.serialNumber;
     String title = model.numberName;
 

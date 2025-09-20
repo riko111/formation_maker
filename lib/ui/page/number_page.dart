@@ -67,7 +67,7 @@ class NumberPage extends ConsumerWidget {
       onWillPop: () async {
         dancerViewModel.setList(numberModel, 0);
         dancerViewModel.initializedFlag=false;
-        fileViewModel.updateFile(numberModel);
+        await fileViewModel.updateFile(numberModel);
         return true;
       },
 
@@ -108,9 +108,9 @@ class NumberPage extends ConsumerWidget {
         ),
 
         TextButton(
-            onPressed: () => {
-              dancerViewModel.setList(numberModel, 0),
-              fileViewModel.updateFile(numberModel),
+            onPressed: () async {
+              dancerViewModel.setList(numberModel, 0);
+              await fileViewModel.updateFile(numberModel);
             },
             child: const Text('save')),
       ],
