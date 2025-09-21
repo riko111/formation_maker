@@ -1,7 +1,6 @@
 
 import 'dart:ui';
 
-import 'package:formation_maker/config/size_config.dart';
 
 class PointUtil {
   static Offset convertOffsetFromPoint(double x , double y , double boxSize, Offset centerPoint) {

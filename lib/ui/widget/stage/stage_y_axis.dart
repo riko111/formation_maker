@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:formation_maker/ui/widget/stage/stage_x_axis.dart';
 
 class StageYAxis extends StatelessWidget {
   const StageYAxis({super.key, required this.scaleCount, required this.boxSize,required this.width, required this.height});

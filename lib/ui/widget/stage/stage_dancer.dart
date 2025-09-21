@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:formation_maker/const/colors.dart';
 import 'package:formation_maker/ui/formation_maker.dart';
 import 'package:formation_maker/util/point_util.dart';
 import 'package:formation_maker/viewmodel/dancer_view_model.dart';

@@ -1,8 +1,5 @@
 
 import 'package:flutter/cupertino.dart';
-import 'package:formation_maker/const/colors.dart';
-import 'package:formation_maker/ui/widget/stage/stage_y_axis.dart';
-
 class StageFloor extends StatelessWidget {
   const StageFloor({super.key, required this.width, required this.height});
 
